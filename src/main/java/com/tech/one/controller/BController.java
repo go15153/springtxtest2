@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tech.spring_tx_board.dao.IDao;
+import com.tech.spring_tx_board.dto.BoardDto;
 import com.tech.spring_tx_board.vopage.SearchVO;
 
 @Controller
@@ -129,6 +130,24 @@ public class BController {
 		
 		model.addAttribute("searchVo",searchVO);
 		return "list";
+	}
+	
+	@RequestMapping("/content_view")
+	public String content_view(HttpServletRequest request,Model model) {
+		System.out.println("pass by content_view()");	
+//		model.addAttribute("request",request);
+//		commandInp=new BContentViewService();
+//		commandInp.execute(model);
+		String bid=request.getParameter("bid");
+		
+//		mybatis에서 작업
+		IDao dao=sqlSession.getMapper(IDao.class);
+		dao.upHit(bid);
+		
+		BoardDto dto=dao.contentView(bid);
+
+		model.addAttribute("content_view",dto);
+		return "content_view";
 	}
 
 }
