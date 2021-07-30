@@ -24,7 +24,7 @@ public class BController {
 	@Autowired
 	private SqlSession sqlSession;
 
-	
+//	list
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request,
 			SearchVO searchVO,Model model) {
